@@ -7,6 +7,8 @@ it features
 - Pagination support
 
 
+
+
 ## Technologies Used
 - Spring Boot
 - JPA & Hibernate
@@ -15,6 +17,9 @@ it features
 - RESTful API
 
 ## API Endpoints
+
+#NOTE :
+  ``` Ensure that the id field of your Product or category  entity is not being changed manually in apis methods. The id is primary key should be treated as immutable and should not be altered after the entity is created.```
 ### Category Endpoints
 - GET `/api/categories`
 - POST `/api/categories`
