@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
@@ -19,6 +20,7 @@ public class ProductService {
         return productRepository.findAll(pageable);
     }
 
+
     public Product createProduct(Product product) {
         return productRepository.save(product);
     }
@@ -30,8 +32,8 @@ public class ProductService {
     //update prodcuct by id
     public Product updateProductById(Long id,Product newProduct){
      return  productRepository.findById(id).map(product -> {
+            product.setPrice(newProduct.getPrice());
             product.setName(newProduct.getName());
-            product.setId(newProduct.getId());
             if(newProduct.getCategory()!=null){
             product.setCategory(newProduct.getCategory());
             }

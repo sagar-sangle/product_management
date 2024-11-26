@@ -19,14 +19,14 @@ public class CategoryService {
     private CategoryRepository categoryRepository;
 
     //get all categories
-    public List<Category> getAllCategories(){
-
-        return categoryRepository.findAll();
-
-    }
+//    public List<Category> getAllCategories(){
+//
+//        return categoryRepository.findAll();
+//
+//    }
 
     //get all categories by paging
-    Page<Category> getAllCategories(Pageable pageable){
+    public Page<Category> getAllCategories(Pageable pageable){
 
         return categoryRepository.findAll(pageable);
     }

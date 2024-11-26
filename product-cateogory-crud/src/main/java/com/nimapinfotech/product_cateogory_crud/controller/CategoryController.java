@@ -3,6 +3,9 @@ package com.nimapinfotech.product_cateogory_crud.controller;
 import com.nimapinfotech.product_cateogory_crud.entity.Category;
 import com.nimapinfotech.product_cateogory_crud.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -20,9 +23,9 @@ public class CategoryController {
 
     //get all
     @GetMapping("/categories")
-    public List<Category> getAllCategories(){
+    public Page<Category> getAllCategories(Pageable pageable){
 
-        return categoryService.getAllCategories();
+        return categoryService.getAllCategories(pageable);
     }
 
     //create one
@@ -33,19 +36,45 @@ public class CategoryController {
 
     //get category by Id
     @GetMapping("/categories/{id}")
-    public Optional<Category> getCategoryById(@PathVariable Long id){
-        return categoryService.getCategoryById(id);
+    public ResponseEntity<Category> getCategoryById(@PathVariable Long id){
+
+
+         Category category = categoryService.getCategoryById(id).orElse(null);
+         if(category!=null){
+             return ResponseEntity.ok().body(category);
+         }else {
+             return ResponseEntity.notFound().build();
+         }
     }
 
     @PutMapping("/categories/{id}")
-    public Category updateCategoryById(@PathVariable Long id,@RequestBody Category updatedCategory){
+    public ResponseEntity<Category> updateCategoryById(@PathVariable Long id,@RequestBody Category updatedCategory){
 
-        return categoryService.updateCategoryById(id,updatedCategory);
+
+        Category cat = categoryService.getCategoryById(id).orElse(null);
+
+        if(cat!=null){
+            Category category= categoryService.updateCategoryById(id,updatedCategory);
+            return ResponseEntity.ok().body(cat);
+        }else {
+            return ResponseEntity.notFound().build();
+        }
+
+
     }
 
     @DeleteMapping("/categories/{id}")
-    public void deleteCategoryById(@PathVariable Long id){
-        categoryService.DeleteCategoryById(id);
+    public ResponseEntity<Category> deleteCategoryById(@PathVariable Long id){
+        Category cat = categoryService.getCategoryById(id).orElse(null);
+        if(cat!=null){
+            categoryService.DeleteCategoryById(id);
+            return ResponseEntity.ok().body(cat);
+
+        }else {
+            return ResponseEntity.notFound().build();
+        }
+
+
     }
 
 
