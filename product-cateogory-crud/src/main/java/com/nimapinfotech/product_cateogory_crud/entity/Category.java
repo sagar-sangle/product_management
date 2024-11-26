@@ -1,5 +1,7 @@
 package com.nimapinfotech.product_cateogory_crud.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -15,7 +17,9 @@ public class Category {
     @Column(unique = true, nullable = false)
     private String name;
 
-    @OneToMany(mappedBy = "category",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "category",cascade = CascadeType.ALL,orphanRemoval = true)
+    @JsonManagedReference
+    @JsonIgnore
     private List<Product> products;
 
     public Category() {
