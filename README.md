@@ -21,8 +21,29 @@ it features
 #NOTE :
   ``` Ensure that the id field of your Product or category  entity is not being changed manually in apis methods. The id is primary key should be treated as immutable and should not be altered after the entity is created.```
 ### Category Endpoints
-- GET `/api/categories`
+
+Example: http://localhost:8080/api/products --> get all products 
+and during malking post requst or put request ->
+i.e during put request on category -< 
+#DO THIS 
+
+http://localhost:8080/api/categories/1
+{
+  "name": "books"
+}
+
+#INSTEAD OF THIS :
+http://localhost:8080/api/categories/1
+{
+  "id":100,
+  "name": "books"
+}
+
+
+- GET `/api/categories`   
 - POST `/api/categories`
+
+  #when making put request do this 
 - PUT `/api/categories/{id}`
 - DELETE `/api/categories/{id}`
 
